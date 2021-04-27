@@ -1,0 +1,32 @@
+%David Kemp
+clear all
+
+t = [0.5:0.5:3];
+h = [1.4,4.9,10.8,20.0,30.8,44.0];      %Placing results as arrays.
+Error = 0.5*ones(1,6);
+
+figure('Name','Graph of the Height Fell in a Set of Time Intervals by a Small Mass')        %Plotting results on a graph with error bars and producing a line of best fit.
+errorbar(t,h,Error,'*k')
+xlabel('Time(s)')
+ylabel('Height(m)')
+title('Plot of the Height Fallen by a Small Mass from Rest Under Gravity for a Set of Times')
+quadfit = polyfit(t,h,2)        %Equation of line of best fit.
+quadeval = polyval(quadfit,0.5:0.1:3);
+hold on
+plot(0.5:0.1:3,quadeval,'-r')       %Plotting line of best fit for the data.
+hold off
+
+Lnt = log(t);       %Converting the results into their log form.
+Lnh = log(h);
+
+figure('Name','Graph of the ln of Height Fell in a Set of Time Intervals by a Small Mass')      %Plotting log of the results on a graph with error bars and producing a line of best fit.
+Lnherror = (Error./h);
+errorbar(Lnt,Lnh,Lnherror,'*k')
+xlabel('Ln(Time)')
+ylabel('Ln(Height)')
+title('Plot of the ln of Height Fallen by a Small Mass from Rest Under Gravity for the ln of a Set of Times')
+linfit = polyfit(Lnt,Lnh,1)     %Equation of line of best fit.
+lineval = polyval(linfit,log(0.5:0.1:3));
+hold on
+plot(log(0.5:0.1:3),lineval,'-r')       %Plotting the line of best fit for the data
+hold off
